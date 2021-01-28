@@ -1,0 +1,69 @@
+
+# Must be ENSEMBL FORMAT gtf
+gtf: /path/to/gtf
+
+# Bed file containing poly(A) sites
+polya_bed: /path/to/polya.bed
+
+# path to fasta file for genome
+genome_fa: /path/to/genome.fa
+
+# Path to sample table
+## A 6 column CSV file of
+## | sample_name |       file_type         |        realign              | which_mate               | strandedness            |        path
+##     <str>        <str> ("bam"/"fastq")      <int> 1 (do) / 0 (don't)     <str>  "r1" / "r2" / NA    "forward"/"unstranded"        <str>
+# sample_name: self-explanatory, should be unique id
+# file_type: is this bam ("bam") or fastqs ("fastq")? A single FQ file can be mapped (single-end mode w/ STAR)
+# realign: Should we extract reads from bam and realign (1), or are they already valid?
+########## current version does not support paired-end reads (https://github.com/zavolanlab/TECtool/issues/1)
+########## Input bams must only contain single-end alignments. If you're input BAMs are like that (and coordinate sorted), put 0
+########## **IF YOU PROVIDE A FASTQ FILE ALSO PUT 1**
+# which_mate: which read pair to use for single-end mapping ("r1" if mate 1, "r2" if mate 2, )
+########## Only applies if you've passed a bam file containing paired-end alignments (file_type = bam & realign = 1)
+########## Recommend specifying to select the mate that aligns directly to RNA strand (guide below if unsure)
+########## https://littlebitofdata.com/en/2017/08/strandness_in_rnaseq/
+# strandedness: This is option to Tectool. If your single end data (actual or 'fake' single end) comes from a stranded protocol, put "stranded", otherwise "unstranded"
+# path: self-explanatory, just path to bam/fastq for this sample
+sample_table_csv: config/ward_ipsc_example_sample_tbl.csv
+
+
+#Path to master output directory - output for each sample will be stored under individual subdirectories here
+master_output_dir: tectool_output/
+
+
+
+########
+## TECTOOL PARAMETERS
+########
+
+# controls input to --minimum_spliced_reads_for_cryptic_exon_start_site option
+# Minimum number of spliced reads required to consider the start site of a novel exon. [default=5]
+minimum_spliced_reads: 5
+
+# input to min_region_overlap
+# Minimum number of bases that a read should share with an exon to be considered towards feature calculations for the exon
+min_region_overlap: 10
+
+# input to --max_splice_fuzziness
+# Maximum number of bases by which the 5' boundary of a candidate novel exon is allowed to vary,
+# considering all reads that splice into that candidate exon (It will be suppressed in future versions)
+max_splice_fuzziness: 0
+
+# input to --drop_manually_selected_features
+# Select features for the exon classification from scratch, using a greedy approach.
+# Default is to include a minimum set of features (['ReadsOUTvsIN_all', 'entropy_efficiency']), which we found most informative
+# This is a True/False option, so put 'True' if want to switch on, 'False' to switch off (default)
+drop_manually_selected_features: False
+
+## input to --drop_intronic_polya_sites_of_overlapping_genes
+## Ignore intronic polya sites that occur in regions of overlap between genes. [default=False]
+# This is a True/False option, so put 'True' if want to switch on, 'False' to switch off (default)
+drop_intronic_overlap: False
+
+# Need to decide how to allow incorporation of this
+
+# --use_precalculated_training_set:
+# Use precalculated training set (skips the generation of training and validation sets). This option should be provided in combination with the option: --training_set_directory. [default=False]
+
+# --training_set_directory DIRECTORY:
+# Training set directory created by another TECtool run using the same annotation files. This option should be provided in combination with the option: --use_precalculated_training_set, otherwise it is ignored. [No default option provided]
