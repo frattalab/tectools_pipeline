@@ -35,7 +35,7 @@ rule all:
         expand(OUTPUT_DIR + "{sample}/enriched_annotation.gtf", sample = SAMPLES),
         expand(OUTPUT_DIR + "{sample}/classified_as_terminal_with_probabilities.tsv", sample = SAMPLES)
 
-##
+
 
 
 ## These are helper functions to control which samples are sent for re-alignment, and how to find each sample's bam file
@@ -99,6 +99,10 @@ def get_fastq(sample, options, output_dir):
     else:
         return ""
 
+
+########--------------------
+## Actually running tectool
+########--------------------
 
 rule run_tectool:
     input:
