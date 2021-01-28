@@ -67,3 +67,32 @@ drop_intronic_overlap: False
 
 # --training_set_directory DIRECTORY:
 # Training set directory created by another TECtool run using the same annotation files. This option should be provided in combination with the option: --use_precalculated_training_set, otherwise it is ignored. [No default option provided]
+
+
+####------
+## STAR OPTIONS IF RE-ALIGNING
+###-------
+
+## Index generation
+##
+## As using ensembl fastas and annotation
+
+## Index, species and version, overhang prefix + read length are are joined together to form the full path
+star_index_master_dir: /SAN/vyplab/vyplab_reference_genomes/STAR/
+star_index_species: human/
+star_index_version: ensembl_GRCh38/
+star_index_overhang_prefix: star_indices_overhang
+read_length: 75
+
+extra_star_parameters:
+  outSAMattributes: MD NH XS
+#  quantMode: GeneCounts
+  outSAMtype: BAM SortedByCoordinate #Don't change this - Tectool requires coordinate-sorted bams (and I track aligned name by this)
+  outSAMunmapped: Within
+  twopassMode: Basic
+
+#### No need to change these
+
+# Joined with
+fastq_outdir_name: pulled_fastq/
+bam_outdir_name: aligned_bams/
