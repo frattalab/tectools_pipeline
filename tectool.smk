@@ -13,6 +13,13 @@ sample_tbl = pd.read_csv(config["sample_table_csv"], index_col="sample_name")
 SAMPLES = sample_tbl.index.tolist()
 OPTIONS = sample_tbl.to_dict(orient="index")
 
+#this function uses the text file located in the config folder "star_genomes_species.csv" and
+#the config file species parameter to
+#give the correct genome for the species
+# GENOME_DIR = os.path.join(config['STAR_indices'],config['species'],SPECIES_VERSION,"star_indices_overhang" + str(config['readLen'])
+
+
+
 # print(sample_tbl)
 # print(SAMPLES)
 # print(OPTIONS)
@@ -51,13 +58,13 @@ def get_bam(sample, options, output_dir):
         path to master output directory (results for each sample stored within here)
     '''
 
-    if not options[sample]["realign"] == 1 and options[sample]["file_type"] == "bam":
+    if options[sample]["realign"] == 0 and options[sample]["file_type"] == "bam":
 
         return options[sample]["path"]
 
     else:
 
-        return os.path.join(output_dir, "aligned", sample + ".bam")
+        return os.path.join(output_dir, config["bam_outdir_name"], sample + ".Aligned.sortedByCoord.bam")
 
 
 def get_fastq(sample, options, output_dir):
@@ -86,7 +93,7 @@ def get_fastq(sample, options, output_dir):
     # Provided bam and need to pull out 1 of mates
     elif options[sample][file_type] == "bam" and options[sample][realign] == 1:
 
-        return os.path.join(output_dir, "pulled_fastq", sample + ".fastq.gz")
+        return os.path.join(output_dir, "pulled_fastq", sample + ".pulled.fastq.gz")
 
     # Don't need to re-align
     else:
@@ -97,7 +104,6 @@ rule run_tectool:
     input:
         bam = get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR),
         bam_idx = get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR) + ".bai",
-        #blah blah blah
 
     output:
         os.path.join(OUTPUT_DIR, "{sample}/enriched_annotation.gtf"),
