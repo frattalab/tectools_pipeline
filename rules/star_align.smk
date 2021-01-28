@@ -25,6 +25,7 @@ rule run_star_se:
         generated_index = os.path.join(GENOME_DIR, "/SA"),
         one = get_fastq(wildcards.sample, OPTIONS, OUTPUT_DIR)
     output:
+        os.path.join(star_outdir, "{sample}.Aligned.sortedByCoord.out.bam"),
         os.path.join(star_outdir, "{sample}.SJ.out.tab"),
         os.path.join(star_outdir, "{sample}.Log.final.out"),
 
