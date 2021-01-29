@@ -1,12 +1,12 @@
 
 # Must be ENSEMBL FORMAT gtf
-gtf: /path/to/gtf
+gtf: /SAN/vyplab/vyplab_reference_genomes/annotation/homo_sapiens.100.gtf
 
 # Bed file containing poly(A) sites
-polya_bed: /path/to/polya.bed
+polya_bed: /SAN/vyplab/vyplab_reference_genomes/PolyASite/atlas.clusters.2.0.GRCh38.96.bed
 
 # path to fasta file for genome
-genome_fa: /path/to/genome.fa
+genome_fa: /SAN/vyplab/vyplab_reference_genomes/annotation/homo_sapiens.100.fasta
 
 # Path to sample table
 ## A 6 column CSV file of
