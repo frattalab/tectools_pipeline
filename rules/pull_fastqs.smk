@@ -50,6 +50,6 @@ rule bam_to_fastq:
         "../env/env_align.yaml"
     shell:
         """
-        samtools view -f {params.which_mate} -U {input} | \
+        samtools view -h -f {params.which_mate} -U {input} | \
         samtools fastq -o {output} -
         """
