@@ -40,7 +40,7 @@ rule run_star_se:
         4
 
     conda:
-        "env/env_align.yaml"
+        "../env/env_align.yaml"
 
     group:
         "align"
@@ -64,7 +64,7 @@ rule index_bams:
         os.path.join(star_outdir, "{sample}.Aligned.sortedByCoord.out.bam.bai")
 
     conda:
-        "env/env_align.yaml"
+        "../env/env_align.yaml"
 
     group:
         "align"

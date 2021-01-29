@@ -19,7 +19,7 @@ rule generate_genome:
     threads:
         4
     conda:
-        "env/env_align.yaml"
+        "../env/env_align.yaml"
     shell:
         """
         STAR \

@@ -136,7 +136,7 @@ rule run_tectool:
         drop_intronic = "--drop_intronic_polya_sites_of_overlapping_genes" if config["drop_intronic_overlap"] else ""
 
     conda:
-        "env/env_tectool.yaml"
+        "../env/env_tectool.yaml"
 
     shell:
         """

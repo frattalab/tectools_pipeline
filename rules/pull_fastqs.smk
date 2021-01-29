@@ -47,7 +47,7 @@ rule bam_to_fastq:
         which_mate = lambda wildcards: get_samtools_mate_flag(wildcards.sample, OPTIONS)
 
     conda:
-        "env/env_align.yaml"
+        "../env/env_align.yaml"
     shell:
         """
         samtools view -f {params.which_mate} -U {input} | \
