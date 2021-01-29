@@ -30,11 +30,10 @@ def get_samtools_mate_flag(sample, options):
         return None
 
 ## This is for debugging purposes... Uncomment if having troubles
-
-for s in SAMPLES:
-    print("output of get_bam_to_pull for {}\n".format(s))
-    print("{}\n".format(get_bam_to_pull(s, OPTIONS)))
-
+# for s in SAMPLES:
+#     print("output of get_bam_to_pull for {}\n".format(s))
+#     print("{}\n".format(get_bam_to_pull(s, OPTIONS)))
+#
 
 
 rule bam_to_fastq:
