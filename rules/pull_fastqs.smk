@@ -33,7 +33,7 @@ def get_samtools_mate_flag(sample, options):
 
 rule bam_to_fastq:
     input:
-         get_bam_to_pull(wildcards.sample, OPTIONS)
+        lambda wildcards: get_bam_to_pull(wildcards.sample, OPTIONS)
 
     output:
         os.path.join(OUTPUT_DIR, fastq_outdir_name, "{sample}.pulled.fastq.gz")
