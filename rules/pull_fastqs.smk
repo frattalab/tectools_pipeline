@@ -32,8 +32,8 @@ def get_samtools_mate_flag(sample, options):
 ## This is for debugging purposes... Uncomment if having troubles
 
 for s in SAMPLES:
-    print("output of get_fastq for {}\n".format(s))
-    print(get_bam_to_pull(s, OPTIONS, OUTPUT_DIR))
+    print("output of get_bam_to_pull for {}\n".format(s))
+    print("{}\n".format(get_bam_to_pull(s, OPTIONS)))
 
 
 
