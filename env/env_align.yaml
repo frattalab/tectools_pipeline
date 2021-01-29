@@ -1,0 +1,9 @@
+name: tectool_align
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - star=2.7.7a
+  - samtools=1.11
