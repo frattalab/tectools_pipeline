@@ -66,7 +66,7 @@ def get_bam(sample, options, output_dir):
 
     else:
 
-        return os.path.join(output_dir, config["bam_outdir_name"], sample + ".Aligned.sortedByCoord.bam")
+        return os.path.join(output_dir, config["bam_outdir_name"], sample + ".Aligned.sortedByCoord.out.bam")
 
 
 def get_fastq(sample, options, output_dir):
