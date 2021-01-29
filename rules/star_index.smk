@@ -12,8 +12,8 @@ rule generate_genome:
         fasta = config["genome_fa"],
         gtf = config["gtf"]
     output:
-        os.path.join(GENOME_DIR, "/SA"),
-        os.path.join(GENOME_DIR, "/Genome")
+        os.path.join(GENOME_DIR, "SA"),
+        os.path.join(GENOME_DIR, "Genome")
     params:
         sjdbOverhang = config["read_length"] - 1
     threads:
