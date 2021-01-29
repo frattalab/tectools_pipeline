@@ -150,6 +150,6 @@ rule run_tectool:
         --max_splice_fuzziness {params.max_fuzz} \
         {params.drop_selected} \
         {params.drop_intronic} \
-        --output_dir {params.output_dir} \
+        --output_dir {params.outdir} \
         --verbose
         """
