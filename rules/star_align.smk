@@ -14,7 +14,7 @@ def return_parsed_extra_params(extra_params):
     return cmd
 
 
-star_outdir = get_output_dir(OUTPUT_DIR, config["bam_outdir_name"])
+star_outdir = os.path.join(OUTPUT_DIR, config["bam_outdir_name"])
 
 if not os.path.exists(star_outdir):
     os.system("mkdir -p {0}".format(star_outdir))
