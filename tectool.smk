@@ -6,6 +6,7 @@ configfile: "config/config.yaml"
 
 GTF = config["gtf"]
 
+# Make sure it has a slash at end of path
 OUTPUT_DIR = os.path.join(config["master_output_dir"],"")
 
 sample_tbl = pd.read_csv(config["sample_table_csv"], index_col="sample_name")
@@ -87,12 +88,12 @@ def get_fastq(sample, options, output_dir):
     '''
 
     # if already provided fastq
-    if options[sample][file_type] == "fastq":
+    if options[sample]["file_type"] == "fastq":
 
-        return options[sample][path]
+        return options[sample]["path"]
 
     # Provided bam and need to pull out 1 of mates
-    elif options[sample][file_type] == "bam" and options[sample][realign] == 1:
+    elif options[sample]["file_type"] == "bam" and options[sample]["realign"] == 1:
 
         return os.path.join(output_dir, "pulled_fastq", sample + ".pulled.fastq.gz")
 
@@ -107,8 +108,8 @@ def get_fastq(sample, options, output_dir):
 
 rule run_tectool:
     input:
-        bam = get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR),
-        bam_idx = get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR) + ".bai",
+        bam = lambda wildcards: get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR),
+        bam_idx = lambda wildcards: get_bam(wildcards.sample, OPTIONS, OUTPUT_DIR) + ".bai",
 
     output:
         os.path.join(OUTPUT_DIR, "{sample}/enriched_annotation.gtf"),
@@ -119,7 +120,7 @@ rule run_tectool:
         gtf = GTF,
         polya = config["polya_bed"],
         fa = config["genome_fa"],
-        seq_dirn = OPTIONS[wildcards.sample]["strandedness"],
+        seq_dirn = lambda wildcards: OPTIONS[wildcards.sample]["strandedness"],
         min_jnc_reads = config["minimum_spliced_reads"],
         min_overlap = config["min_region_overlap"],
         max_fuzz = config["max_splice_fuzziness"],

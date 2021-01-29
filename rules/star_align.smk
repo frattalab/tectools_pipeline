@@ -24,7 +24,7 @@ rule run_star_se:
     input:
         generated_index = os.path.join(GENOME_DIR, "SA"),
         generated_genome = os.path.join(GENOME_DIR, "Genome"),
-        one = get_fastq(wildcards.sample, OPTIONS, OUTPUT_DIR)
+        one = lambda wildcards: get_fastq(wildcards.sample, OPTIONS, OUTPUT_DIR)
     output:
         os.path.join(star_outdir, "{sample}.Aligned.sortedByCoord.out.bam"),
         os.path.join(star_outdir, "{sample}.SJ.out.tab"),
