@@ -10,7 +10,7 @@ if not os.path.exists(GENOME_DIR):
 rule generate_genome:
     input:
         fasta = config["genome_fa"],
-        gtf = config["gtf"])
+        gtf = config["gtf"]
     output:
         os.path.join(GENOME_DIR, "/SA"),
         os.path.join(GENOME_DIR, "/Genome")
