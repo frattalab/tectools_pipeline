@@ -95,11 +95,18 @@ def get_fastq(sample, options, output_dir):
     # Provided bam and need to pull out 1 of mates
     elif options[sample]["file_type"] == "bam" and options[sample]["realign"] == 1:
 
-        return os.path.join(output_dir, "pulled_fastq", sample + ".pulled.fastq.gz")
+        return os.path.join(output_dir, config["fastq_outdir_name"], sample + ".pulled.fastq.gz")
 
     # Don't need to re-align
     else:
         return ""
+
+
+for s in SAMPLES:
+    print("output of get_fastq for {}\n".format(s))
+    print(get_fastq(s, OPTIONS, OUTPUT_DIR))
+    print("output of get_bam for {}\n".format(s))
+    print(get_fastq(s,OPTIONS, OUTPUT_DIR))
 
 
 ########--------------------
