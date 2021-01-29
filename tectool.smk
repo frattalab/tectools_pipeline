@@ -35,7 +35,7 @@ rule all:
 
 include: "rules/pull_fastqs.smk"
 include: "rules/star_index.smk"
-include: "rules/star_index.smk"
+include: "rules/star_align.smk"
 
 
 
