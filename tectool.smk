@@ -25,15 +25,16 @@ OPTIONS = sample_tbl.to_dict(orient="index")
 # print(OPTIONS)
 
 ##
-include: "rules/pull_fastqs.smk"
-include: "rules/star_index.smk"
-include: "rules/star_index.smk"
-
 
 rule all:
     input:
         expand(OUTPUT_DIR + "{sample}/enriched_annotation.gtf", sample = SAMPLES),
         expand(OUTPUT_DIR + "{sample}/classified_as_terminal_with_probabilities.tsv", sample = SAMPLES)
+
+
+include: "rules/pull_fastqs.smk"
+include: "rules/star_index.smk"
+include: "rules/star_index.smk"
 
 
 
