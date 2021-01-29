@@ -22,7 +22,8 @@ if not os.path.exists(star_outdir):
 
 rule run_star_se:
     input:
-        generated_index = os.path.join(GENOME_DIR, "/SA"),
+        generated_index = os.path.join(GENOME_DIR, "SA"),
+        generated_genome = os.path.join(GENOME_DIR, "Genome"),
         one = get_fastq(wildcards.sample, OPTIONS, OUTPUT_DIR)
     output:
         os.path.join(star_outdir, "{sample}.Aligned.sortedByCoord.out.bam"),
