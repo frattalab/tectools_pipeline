@@ -106,7 +106,7 @@ for s in SAMPLES:
     print("output of get_fastq for {}\n".format(s))
     print("{}\n".format(get_fastq(s, OPTIONS, OUTPUT_DIR)))
     print("output of get_bam for {}\n".format(s))
-    print("{}\n".format(get_fastq(s,OPTIONS, OUTPUT_DIR)))
+    print("{}\n".format(get_bam(s,OPTIONS, OUTPUT_DIR)))
 
 
 ########--------------------
