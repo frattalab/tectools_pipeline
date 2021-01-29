@@ -42,6 +42,9 @@ rule run_star_se:
     conda:
         "env/env_align.yaml"
 
+    group:
+        "align"
+
     shell:
         """
         STAR --genomeDir {params.genomeDir} \
@@ -62,6 +65,9 @@ rule index_bams:
 
     conda:
         "env/env_align.yaml"
+
+    group:
+        "align"
 
     shell:
         """
