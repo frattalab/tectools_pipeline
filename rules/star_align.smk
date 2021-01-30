@@ -42,8 +42,8 @@ rule run_star_se:
     conda:
         "../env/env_align.yaml"
 
-    group:
-        "align"
+    # group:
+    #     "align"
 
     shell:
         """
@@ -66,8 +66,8 @@ rule index_bams:
     conda:
         "../env/env_align.yaml"
 
-    group:
-        "align"
+    # group:
+    #     "align"
 
     shell:
         """
