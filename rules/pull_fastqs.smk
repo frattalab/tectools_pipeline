@@ -45,11 +45,13 @@ rule bam_to_fastq:
 
     params:
         which_mate = lambda wildcards: get_samtools_mate_flag(wildcards.sample, OPTIONS)
-
+        temp_bam = os.path.join(OUTPUT_DIR, config["fastq_outdir_name"],"{sample}.bam")
+        # Seems like samtools fastq doesn't accept input from STDIN
     conda:
         "../env/env_align.yaml"
     shell:
         """
-        samtools view -h -f {params.which_mate} -U {input} | \
-        samtools fastq -o {output} -
+        samtools view -h -f {params.which_mate} -U {input} > {params.temp_bam}
+        samtools fastq -o {output} {params.temp_bam}
+        rm {params.temp_bam}
         """
