@@ -41,7 +41,7 @@ rule bam_to_fastq:
         lambda wildcards: get_bam_to_pull(wildcards.sample, OPTIONS)
 
     output:
-        os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.fastq.gz")
+        temp(os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.fastq.gz"))
 
     params:
         which_mate = lambda wildcards: get_samtools_mate_flag(wildcards.sample, OPTIONS),
