@@ -27,10 +27,14 @@ OPTIONS = sample_tbl.to_dict(orient="index")
 
 ##
 
+localrules: all
+
 rule all:
     input:
-        expand(OUTPUT_DIR + "{sample}/enriched_annotation.gtf", sample = SAMPLES),
-        expand(OUTPUT_DIR + "{sample}/classified_as_terminal_with_probabilities.tsv", sample = SAMPLES)
+        expand(OUTPUT_DIR + "{sample}/tectool_only.annotation.gtf", sample = SAMPLES),
+        #expand(OUTPUT_DIR + "{sample}/enriched_annotation.gtf", sample = SAMPLES),
+        #expand(OUTPUT_DIR + "{sample}/classified_as_terminal_with_probabilities.tsv", sample = SAMPLES),
+        #expand(OUTPUT_DIR + "{sample}/dummy_file_deleted_fastas.txt", sample = SAMPLES)
 
 
 include: "rules/pull_fastqs.smk"
@@ -153,4 +157,46 @@ rule run_tectool:
         {params.drop_intronic} \
         --output_dir {params.outdir} \
         --verbose
+        """
+
+## Tectool copies genome fasta for each sample and creates a flat version
+## This takes up ~ 6GB per sample - unnecessary
+
+rule delete_genomes:
+    input:
+        os.path.join(OUTPUT_DIR, "{sample}/enriched_annotation.gtf"),
+        os.path.join(OUTPUT_DIR, "{sample}/classified_as_terminal_with_probabilities.tsv")
+
+    output:
+        os.path.join(OUTPUT_DIR, "{sample}", "dummy_file_deleted_fastas.txt")
+
+    params:
+        annotation_dir = os.path.join(OUTPUT_DIR, "{sample}","annotation", "")
+
+    group:
+        "extract_tectool"
+
+    shell:
+        """
+        rm {params.annotation_dir}genome.fa*
+        echo 'genome fastas deleted' > {output}
+        """
+
+rule extract_tectool_annotation:
+    input:
+        annotation = os.path.join(OUTPUT_DIR, "{sample}", "enriched_annotation.gtf"),
+        dummy = os.path.join(OUTPUT_DIR, "{sample}", "dummy_file_deleted_fastas.txt")
+
+    output:
+        os.path.join(OUTPUT_DIR, "{sample}", "tectool_only.annotation.gtf")
+
+    params:
+        tectool_grep = "TECtool_annotated"
+
+    group:
+        "extract_tectool"
+
+    shell:
+        """
+        grep {params.tectool_grep} {input.annotation} > {output}
         """
