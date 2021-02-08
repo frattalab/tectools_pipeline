@@ -198,7 +198,7 @@ rule extract_tectool_annotation:
 
     shell:
         """
-        awk 'BEGIN{{FS=OFS="\t"}} {if ($2=="{params.tectool_grep}") {{print $0}}}' |\
+        awk 'BEGIN{{FS=OFS="\\t"}} {{if ($2=="{params.tectool_grep}") print $0}}' \
         {input.annotation} > {output}
         #grep {params.tectool_grep} {input.annotation} > {output}
         """
