@@ -1,6 +1,6 @@
 __default__:
-    h_vmem: 4G
-    tmem: 4G
+    h_vmem: 6G
+    tmem: 6G
     h_rt: 2:00:00
     submission_string: " "
 bam_to_fastq:
