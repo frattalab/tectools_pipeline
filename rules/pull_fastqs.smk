@@ -136,6 +136,6 @@ rule concat_fastqs:
             cat {params.targets} > {output}
         else
             # Just move target FQ to output file
-            cp {params.target} {output}
+            cp {params.targets} {output}
         fi
         """
