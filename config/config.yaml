@@ -10,19 +10,31 @@ genome_fa: /SAN/vyplab/vyplab_reference_genomes/annotation/homo_sapiens.100.fast
 
 # Path to sample table
 ## A 6 column CSV file of
-## | sample_name |       file_type         |        realign              | which_mate               | strandedness            |        path
-##     <str>        <str> ("bam"/"fastq")      <int> 1 (do) / 0 (don't)     <str>  "r1" / "r2" / NA    "forward"/"unstranded"        <str>
+## | sample_name |       file_type         |        realign              | which_mate                       | strandedness            |        path
+##     <str>        <str> ("bam"/"fastq")      <int> 1 (do) / 0 (don't)     <str>  "r1" / "r2" / "both" NA     "forward"/"unstranded"        <str>
+
 # sample_name: self-explanatory, should be unique id
+
 # file_type: is this bam ("bam") or fastqs ("fastq")? A single FQ file can be mapped (single-end mode w/ STAR)
+
 # realign: Should we extract reads from bam and realign (1), or are they already valid?
 ########## current version does not support paired-end reads (https://github.com/zavolanlab/TECtool/issues/1)
 ########## Input bams must only contain single-end alignments. If you're input BAMs are like that (and coordinate sorted), put 0
 ########## **IF YOU PROVIDE A FASTQ FILE ALSO PUT 1**
-# which_mate: which read pair to use for single-end mapping ("r1" if mate 1, "r2" if mate 2, )
+
+# which_mate: which read pair to use for single-end mapping ("r1" if mate 1, "r2" if mate 2, "both" if want to concatenate together)
 ########## Only applies if you've passed a bam file containing paired-end alignments (file_type = bam & realign = 1)
-########## Recommend specifying to select the mate that aligns directly to RNA strand (guide below if unsure)
+
+########## IF "both" YOU MUST SET STRANDEDNESS TO "unstranded". Concatenating both files (and pretending single-end)
+################# This approach increases read depth, but lose strand information of reads. Don't know what is preferable approach currently
+
+########## if "r1" or "r2", recommend specifying to select the mate that aligns directly to RNA strand (guide below if unsure)
 ########## https://littlebitofdata.com/en/2017/08/strandness_in_rnaseq/
-# strandedness: This is option to Tectool. If your single end data (actual or 'fake' single end) comes from a stranded protocol, put "stranded", otherwise "unstranded"
+
+# strandedness: This is option to Tectool (--sequencing_direction)
+# Put "stranded" If your single end data (actual or 'fake' single end (i.e. which_mate == "r1" or "r2")) comes from a stranded protocol,
+# Otherwise "unstranded"
+
 # path: self-explanatory, just path to bam/fastq for this sample
 sample_table_csv: config/ward_ipsc_example_sample_tbl.csv
 

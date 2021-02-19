@@ -1,0 +1,8 @@
+sample_name,file_type,realign,which_mate,strandedness,path
+Cont_A_S1,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-A_S1_2.merged.fastq.gz
+Cont_B_S2,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-B_S2_2.merged.fastq.gz
+Cont_C_S3,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-C_S3_2.merged.fastq.gz
+Cont_D_S4,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-D_S4_2.merged.fastq.gz
+TDP43-E_S5,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-E_S5_2.merged.fastq.gz
+TDP43-F_S6,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-F_S6_2.merged.fastq.gz
+TDP43-G_S7,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-G_S7_2.merged.fastq.gz
