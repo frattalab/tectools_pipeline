@@ -78,6 +78,7 @@ def get_fastq(sample, options, output_dir):
     Return path to input fastq file for STAR aligning
     If sample has fastq file provided, return provided path
     If provided a bam file for realigning, this will return the path to the pulled fastq
+        - Contents of pulled fastq will depend on options specified for each sample
     If provided a bam ready to go, this will return an empty string (don't need to run for this sample)
 
     params:
@@ -200,5 +201,4 @@ rule extract_tectool_annotation:
         """
         awk 'BEGIN{{FS=OFS="\\t"}} {{if ($2=="{params.tectool_grep}") print $0}}' \
         {input.annotation} > {output}
-        #grep {params.tectool_grep} {input.annotation} > {output}
         """
