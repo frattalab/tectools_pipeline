@@ -5,5 +5,8 @@ channels:
   - bioconda
 
 dependencies:
+  - python=3.8
+  - multiqc=1.9-0
   - star=2.7.7a
   - samtools=1.11
+  - stringtie=2.1.4-0
