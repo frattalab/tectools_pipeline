@@ -249,7 +249,7 @@ rule get_augmented_gtf:
     shell:
         """
         stringtie --merge \
-        -g {params.reference} \
+        -G {params.reference} \
         -m {params.min_isoform_length} \
         -f 0 \
         -l {params.tr_prefix} \
