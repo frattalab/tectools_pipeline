@@ -1,8 +1,8 @@
 sample_name,file_type,realign,which_mate,strandedness,path
-Cont_A_S1,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-A_S1_2.merged.fastq.gz
-Cont_B_S2,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-B_S2_2.merged.fastq.gz
-Cont_C_S3,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-C_S3_2.merged.fastq.gz
-Cont_D_S4,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/Cont-D_S4_2.merged.fastq.gz
-TDP43-E_S5,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-E_S5_2.merged.fastq.gz
-TDP43-F_S6,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-F_S6_2.merged.fastq.gz
-TDP43-G_S7,fastq,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/pulled_fastq/TDP43-G_S7_2.merged.fastq.gz
+Cont_A_S1,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/Cont-A_S1.pass2Aligned.sortedByCoord.out.bam
+Cont_B_S2,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/Cont-B_S2.pass2Aligned.sortedByCoord.out.bam
+Cont_C_S3,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/Cont-C_S3.pass2Aligned.sortedByCoord.out.bam
+Cont_D_S4,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/Cont-D_S4.pass2Aligned.sortedByCoord.out.bam
+TDP43-E_S5,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/TDP43-E_S5.pass2Aligned.sortedByCoord.out.bam
+TDP43-F_S6,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/TDP43-F_S6.pass2Aligned.sortedByCoord.out.bam
+TDP43-G_S7,bam,1,both,unstranded,/SAN/vyplab/alb_projects/data/ward_bams/bam_files/TDP43-G_S7.pass2Aligned.sortedByCoord.out.bam
