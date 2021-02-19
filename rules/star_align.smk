@@ -15,9 +15,13 @@ def return_parsed_extra_params(extra_params):
 
 
 star_outdir = os.path.join(OUTPUT_DIR, config["bam_outdir_name"])
+multiqc_outdir = os.path.join(OUTPUT_DIR, config["multiqc_outdir_name"])
 
 if not os.path.exists(star_outdir):
     os.system("mkdir -p {0}".format(star_outdir))
+
+if not os.path.exists(multiqc_outdir):
+    os.system("mkdir -p {0}".format(multiqc_outdir))
 
 
 rule run_star_se:
@@ -72,4 +76,23 @@ rule index_bams:
     shell:
         """
         samtools index {input}
+        """
+
+rule multiqc_star:
+    input:
+        expand(star_outdir + "{sample}.Aligned.sortedByCoord.out.bam", sample = SAMPLES)
+
+    output:
+        os.path.join(multiqc_outdir, "multiqc_report.html")
+
+    params:
+        dir = star_outdir,
+        outdir = multiqc_outdir
+
+    conda:
+        "../env/env_align.yaml"
+
+    shell:
+        """
+        multiqc -p -o {params.outdir} {params.dir}
         """

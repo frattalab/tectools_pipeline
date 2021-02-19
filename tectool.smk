@@ -14,12 +14,8 @@ sample_tbl = pd.read_csv(config["sample_table_csv"], index_col="sample_name")
 SAMPLES = sample_tbl.index.tolist()
 OPTIONS = sample_tbl.to_dict(orient="index")
 
-#this function uses the text file located in the config folder "star_genomes_species.csv" and
-#the config file species parameter to
-#give the correct genome for the species
-# GENOME_DIR = os.path.join(config['STAR_indices'],config['species'],SPECIES_VERSION,"star_indices_overhang" + str(config['readLen'])
-
-
+# MultiQC only needs to be ran if have done any re-aligning (check if any samples have realign == 1)
+run_multiqc = any([True if optns["realign"] == 1 else 0 for optns in OPTIONS.values()])
 
 # print(sample_tbl)
 # print(SAMPLES)
@@ -31,7 +27,9 @@ localrules: all
 
 rule all:
     input:
-        expand(OUTPUT_DIR + "{sample}/tectool_only.annotation.gtf", sample = SAMPLES),
+        os.path.join(OUTPUT_DIR, "ensembl_annotated.tectool.novel.merged.gtf"),
+        os.path.join(OUTPUT_DIR, config["multiqc_outdir_name"], "multiqc_report.html") if run_multiqc else ""
+        #expand(OUTPUT_DIR + "{sample}/tectool_only.annotation.gtf", sample = SAMPLES),
         #expand(OUTPUT_DIR + "{sample}/enriched_annotation.gtf", sample = SAMPLES),
         #expand(OUTPUT_DIR + "{sample}/classified_as_terminal_with_probabilities.tsv", sample = SAMPLES),
         #expand(OUTPUT_DIR + "{sample}/dummy_file_deleted_fastas.txt", sample = SAMPLES)
@@ -201,4 +199,60 @@ rule extract_tectool_annotation:
         """
         awk 'BEGIN{{FS=OFS="\\t"}} {{if ($2=="{params.tectool_grep}") print $0}}' \
         {input.annotation} > {output}
+        """
+
+rule get_merged_novel_gtf:
+    input:
+        expand(OUTPUT_DIR + "{sample}/tectool_only.annotation.gtf", sample = SAMPLES)
+
+    output:
+        os.path.join(OUTPUT_DIR, "tectool.novel.merged.gtf")
+
+    params:
+        tr_prefix = "TECTOOL",
+        min_isoform_length = 50,
+
+    conda:
+        "env/env_align.yaml"
+
+    group:
+        "extract_tectool"
+
+    shell:
+        """
+        stringtie --merge \
+        -m {params.min_isoform_length} \
+        -f 0 \
+        -l {params.tr_prefix} \
+        -o {output} \
+        {input}
+        """
+
+rule get_augmented_gtf:
+    input:
+        os.path.join(OUTPUT_DIR, "tectool.novel.merged.gtf")
+
+    output:
+        os.path.join(OUTPUT_DIR, "ensembl_annotated.tectool.novel.merged.gtf")
+
+    params:
+        reference = GTF,
+        tr_prefix = "TECTOOL",
+        min_isoform_length = 50,
+
+    conda:
+        "env/env_align.yaml"
+
+    group:
+        "extract_tectool"
+
+    shell:
+        """
+        stringtie --merge \
+        -g {params.reference} \
+        -m {params.min_isoform_length} \
+        -f 0 \
+        -l {params.tr_prefix} \
+        -o {output} \
+        {input}
         """

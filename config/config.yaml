@@ -108,3 +108,4 @@ extra_star_parameters:
 # Joined with
 fastq_outdir_name: pulled_fastq/
 bam_outdir_name: aligned_bams/
+multiqc_outdir_name: multiqc/
