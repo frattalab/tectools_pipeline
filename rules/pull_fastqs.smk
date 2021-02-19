@@ -118,9 +118,9 @@ rule bam_to_fastq:
 
 rule concat_fastqs:
     input:
-        fq1 = temp(os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.r1.fastq.gz")),
-        fq2 = temp(os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.r2.fastq.gz")),
-        singletons = temp(os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.singletons.fastq.gz"))
+        fq1 = os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.r1.fastq.gz"),
+        fq2 = os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.r2.fastq.gz"),
+        singletons = os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.singletons.fastq.gz")
 
     output:
         temp(os.path.join(OUTPUT_DIR, config["fastq_outdir_name"], "{sample}.pulled.fastq.gz"))
