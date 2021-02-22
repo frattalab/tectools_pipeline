@@ -72,6 +72,10 @@ drop_manually_selected_features: False
 # This is a True/False option, so put 'True' if want to switch on, 'False' to switch off (default)
 drop_intronic_overlap: False
 
+# input to --verbose
+# This is a True/False option, so put 'True' if want to switch on, 'False' to switch off (default)
+verbose: False
+
 # Need to decide how to allow incorporation of this
 
 # --use_precalculated_training_set:

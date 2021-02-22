@@ -136,7 +136,8 @@ rule run_tectool:
         min_overlap = config["min_region_overlap"],
         max_fuzz = config["max_splice_fuzziness"],
         drop_selected = "--drop_manually_selected_features" if config["drop_manually_selected_features"] else "",
-        drop_intronic = "--drop_intronic_polya_sites_of_overlapping_genes" if config["drop_intronic_overlap"] else ""
+        drop_intronic = "--drop_intronic_polya_sites_of_overlapping_genes" if config["drop_intronic_overlap"] else "",
+        verbose = "--verbose" if config["verbose"] else ""
 
     conda:
         "env/env_tectool.yaml"
@@ -155,7 +156,7 @@ rule run_tectool:
         {params.drop_selected} \
         {params.drop_intronic} \
         --output_dir {params.outdir} \
-        --verbose
+        {params.verbose}
         """
 
 ## Tectool copies genome fasta for each sample and creates a flat version
